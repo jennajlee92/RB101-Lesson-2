@@ -6,10 +6,21 @@ answer = nil
 op = nil
 num1 = nil
 num2 = nil
-
-prompt("Welcome to Calculator!")
+name = ''
 
 loop do
+  prompt("Welcome to Calculator! Enter your name:")
+  name = Kernel.gets().chomp()
+
+  if name.empty?()
+    prompt("Make sure to enter a valid name.")
+  else
+    prompt("Hi, #{name}!")
+    break
+  end
+end
+
+loop do # main execution
 loop do
   prompt("Input a number:")
   num1 = Kernel.gets().chomp()
