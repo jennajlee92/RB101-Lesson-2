@@ -1,4 +1,13 @@
-def prompt(message)
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+LANGUAGE = 'es'
+
+def messages(message, lang='en')
+  MESSAGES[lang][message]
+end
+
+def prompt(key)
+  message = messages(key, LANGUAGE)
   Kernel.puts("=> #{message}")
 end
 
@@ -9,11 +18,11 @@ num2 = nil
 name = ''
 
 loop do
-  prompt("Welcome to Calculator! Enter your name:")
+  prompt('welcome')
   name = Kernel.gets().chomp()
 
   if name.empty?()
-    prompt("Make sure to enter a valid name.")
+    prompt('valid_name')
   else
     prompt("Hi, #{name}!")
     break
@@ -21,65 +30,64 @@ loop do
 end
 
 loop do # main execution
-loop do
-  prompt("Input a number:")
-  num1 = Kernel.gets().chomp()
+  loop do
+    prompt("Input a number:")
+    num1 = Kernel.gets().chomp()
 
-  if num1.to_i != 0
-    break
-  else
-    prompt("That's not a valid number!")
+    if num1.to_i.to_s == num1
+      break
+    else
+      prompt("That's not a valid number!")
+    end
   end
-end
 
-loop do
-  prompt("Input another number:")
-  num2 = Kernel.gets().chomp()
+  loop do
+    prompt("Input another number:")
+    num2 = Kernel.gets().chomp()
 
-  if num2.to_i != 0
-    break
-  else
-    prompt("That's not a valid number!")
+    if num2.to_i.to_s == num2
+      break
+    else
+      prompt("That's not a valid number!")
+    end
   end
-end
 
-loop do
-  prompt("What operation do you want to perform on these numbers? (+ - / *)")
-  op = Kernel.gets().chomp()
+  loop do
+    prompt("What operation do you want to perform on these numbers? (+ - / *)")
+    op = Kernel.gets().chomp()
 
-  if op == "+" || op == "-" || op == "/" || op == "*"
-    break
-  else
-    prompt("That's not a valid operation!")
+    if op == "+" || op == "-" || op == "/" || op == "*"
+      break
+    else
+      prompt("That's not a valid operation!")
+    end
   end
-end
 
-result = case op
-when "+"
-  num1.to_i + num2.to_i
-when "-"
-  num1.to_i - num2.to_i
-when "/"
-  num1.to_f / num2.to_f
-when "*"
-  num1.to_i * num2.to_i
-end
+  result = case op
+           when "+"
+             num1.to_i + num2.to_i
+           when "-"
+             num1.to_i - num2.to_i
+           when "/"
+             num1.to_f / num2.to_f
+           when "*"
+             num1.to_i * num2.to_i
+           end
 
-Kernel.puts("#{num1} #{op} #{num2} equals #{result}.")
+  Kernel.puts("#{num1} #{op} #{num2} equals #{result}.")
 
-loop do
-  prompt("Do you want to perform another operation? (y/n)")
-  answer = Kernel.gets().chomp()
+  loop do
+    prompt("Do you want to perform another operation? (y/n)")
+    answer = Kernel.gets().chomp()
 
-  if answer == 'y' || answer == 'n'
-    break
-  else
-    prompt("That's not a valid answer!")
+    if answer == 'y' || answer == 'n'
+      break
+    else
+      prompt("That's not a valid answer!")
+    end
   end
-end
 
-if answer == 'n'
-  break
-end
-
+  if answer == 'n'
+    break
+  end
 end
