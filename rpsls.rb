@@ -2,8 +2,10 @@ VALID_CHOICES = %w(r p s l S)
 
 rpsls = { r: 'rock', p: 'paper', s: 'scissors', l: 'lizard', S: 'Spock' }
 
-winning_hand = { r: { s: 'scissors', l: 'lizard' }, p: { r: 'rock', S: 'Spock' },
-                 s: { p: 'paper', l: 'lizard' }, l: { p: 'paper', S: 'Spock' },
+winning_hand = { r: { s: 'scissors', l: 'lizard' },
+                 p: { r: 'rock', S: 'Spock' },
+                 s: { p: 'paper', l: 'lizard' },
+                 l: { p: 'paper', S: 'Spock' },
                  S: { r: 'rock', s: 'scissors' } }
 
 number_of_wins = { user: 0, computer: 0 }
@@ -30,7 +32,8 @@ loop do
 
   computer_choice = VALID_CHOICES.sample
 
-  prompt("You chose: #{rpsls[user_choice.to_sym]}; Computer chose: #{rpsls[computer_choice.to_sym]}")
+  prompt("You chose: #{rpsls[user_choice.to_sym]}")
+  prompt("Computer chose: #{rpsls[computer_choice.to_sym]}")
 
   if winning_hand[user_choice.to_sym][computer_choice.to_sym]
     prompt("You won!")
@@ -44,7 +47,8 @@ loop do
     number_of_wins[:computer] += 1
   end
 
-  prompt("Your wins: #{number_of_wins[:user]}. Computer wins: #{number_of_wins[:computer]}.")
+  prompt("Your wins: #{number_of_wins[:user]}.")
+  prompt("Computer wins: #{number_of_wins[:computer]}.")
 
   answer = ''
 
@@ -56,6 +60,8 @@ loop do
     else
       prompt("Match and tie!")
     end
+
+    number_of_wins = { user: 0, computer: 0 }
 
     prompt("Play again? (y/n)")
     answer = gets.chomp
