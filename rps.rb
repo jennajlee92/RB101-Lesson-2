@@ -1,4 +1,5 @@
-VALID_CHOICES = ["r", "p", "s"]
+VALID_CHOICES = %w(r p s)
+rps = {r: 'rock', p: 'paper', s: 'scissors'}
 
 def prompt(message)
   puts "=> #{message}"
@@ -23,7 +24,7 @@ loop do
   prompt("Computer is choosing...")
   computer_choice = VALID_CHOICES.sample
 
-  prompt("You chose: #{user_choice}; Computer chose: #{computer_choice}")
+  prompt("You chose: #{rps[user_choice.to_sym]}; Computer chose: #{rps[computer_choice.to_sym]}")
 
   if user_choice == 'r'
     case computer_choice
